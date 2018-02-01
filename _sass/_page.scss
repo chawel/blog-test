@@ -552,7 +552,9 @@ ul.social-buttons li a:active {
 	background-color: $menu-overflow;
 	z-index: 100;
 	box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.4);
+	font-size: $menu-font-size + 0px;
 }
+
 .header-menu-overflow ul li a{
 	color: $white;
 }

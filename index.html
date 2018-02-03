@@ -2,10 +2,9 @@
 layout: home
 title: "Centrum Wsparcia Sprzedaży Internetowej (CWSI)"
 description: "Blog o e-commerce i automatyzacji z użyciem Python"
-tags: [Jekyll, theme, themes, responsive, blog, modern]
+tags: [python, e-commerce, automatyzacja, api, allegro, shoper, prestashop, shoplo]
 comments: false
 ---
-
 {% for post in paginator.posts %}
 <article class="hentry">
   <header>
@@ -17,12 +16,12 @@ comments: false
       </div><!-- /.entry-image -->
     {% endif %}
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%B %d, %Y" }}</a></time></span><span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span>
+      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{% include translated_date.html date=post.date format=site.date_format %}</a></time></span><span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span>
       {% if site.reading_time %}
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
         {% assign readtime = post.content | strip_html | number_of_words | divided_by:site.words_per_minute %}
-        Reading time ~{% if readtime <= 1 %}1 minute{% else %}{{ readtime }} minutes{% endif %}
+        Czas czytania ~{% if readtime <= 1 %}1 minuta{% else %}{{ readtime }} minut{% endif %}
       </span><!-- /.entry-reading-time -->
       {% endif %}
     </div><!-- /.entry-meta -->
@@ -36,7 +35,7 @@ comments: false
       {{ post.excerpt }}
       {% if post.content contains "<!-- more -->" %}
           <div align="center">
-              <div markdown="0"><a href="{{ site.url }}{{ post.url }}" class="btn btn-info">Continue Reading ...</a></div>
+              <div markdown="0"><a href="{{ site.url }}{{ post.url }}" class="btn btn-info">Czytaj dalej ...</a></div>
           </div>
       {% endif %}
   </div><!-- /.entry-content -->

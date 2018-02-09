@@ -6,9 +6,9 @@ categories: inne
 description: Pierwszy post rozpoczynający mój blog.
 tags: [news]
 image:
-  feature:
-  credit:
-  creditlink:
+  feature: snakes.jpg
+  credit: Designed by Freepik
+  creditlink: https://www.freepik.com/free-vector/blue-snake-pattern_1292863.htm
 comments:
 share:
 date: 2018-02-03T20:55:44+01:00

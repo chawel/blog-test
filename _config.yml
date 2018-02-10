@@ -10,7 +10,8 @@ excerpt_separator: <!-- more -->
 # Your site's domain goes here (eg: //mmistakes.github.io, http://mademistakes.com, etc)
 # When testing locally leave blank or use http://localhost:4000
 
-url: https://chawel.github.io
+url: https://cwsi.pl
+enforce_ssl: cwsi.pl
 
 # draw your top menu here
 # each item must have a title and a url.
@@ -47,7 +48,7 @@ owner:
   bio:            '"Im mniej nużącej pracy manualnej tym lepiej, zwłaszcza kiedy musimy sami prowadzić sklep internetowy". Autor bloga cwsi.pl o tematyce automatyzacji w dziedzinie e-commerce. Entuzjasta języków skryptowych (szczególnie Python).'
   email:          you@email.com
   # Twitter nick for use in Twitter cards and follow button.
-  twitter: chawel # if no twitter in this config, the twitter follow button will be removed
+  # twitter: chawel # if no twitter in this config, the twitter follow button will be removed
   # GitHub nick for use in follow button in author block.
   github: chawel
 

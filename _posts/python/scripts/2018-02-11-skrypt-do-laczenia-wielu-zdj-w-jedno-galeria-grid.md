@@ -51,8 +51,9 @@ def get_images_info(path):
     images = {}
     for root, dirs, files in os.walk(path):
         for name in files:
-            with Image.open(os.path.join(root, name)) as temp_img:
-                images[name] = temp_img.size
+            if os.path.isfile(os.path.join(path, name)):
+                with Image.open(os.path.join(root, name)) as temp_img:
+                    images[name] = temp_img.size
 
     return images
 {% endhighlight %}

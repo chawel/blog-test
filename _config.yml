@@ -46,7 +46,7 @@ menu:
   - title: 'Tagi'
     url: '/tags'
   - title: 'Inne'
-    url: '/inne'
+    url: '/categories/#inne'
   - title: 'O mnie'
     url: '/about'
 

@@ -31,19 +31,29 @@ menu:
       - title: 'Dla początkujących'
         url: '/python/tutorial'
   - title: 'E-commerce'
-    url: '/ecommerce'
+    url: '#'
+    submenu:
+      - title: 'Artykuły'
+        url: '/ecommerce/articles'
+      - title: 'Allegro'
+        url: '/ecommerce/allegro'
+      - title: 'Shoper'
+        url: '/ecommerce/shoper'
+      - title: 'Presta Shop'
+        url: '/ecommerce/presta'
+      - title: 'Shoplo'
+        url: '/ecommerce/shoplo'
   - title: 'Tagi'
     url: '/tags'
-  - title: 'Kategorie'
-    url: '/categories'
-    type: 'categories'
+  - title: 'Inne'
+    url: '/inne'
   - title: 'O mnie'
     url: '/about'
 
 # Owner/author information
 owner:
   name:           Paweł Chaniewski
-  site:           http://cwsi.pl
+  site:           http://cwsi.pl/about
   avatar:         images/avatar.jpg
   bio:            '"Im mniej nużącej pracy manualnej tym lepiej, zwłaszcza kiedy musimy sami prowadzić sklep internetowy". Autor bloga cwsi.pl o tematyce automatyzacji w dziedzinie e-commerce. Entuzjasta języków skryptowych (szczególnie Python).'
   email:          you@email.com
@@ -61,7 +71,7 @@ social:
   - title: "github"
     url: "https://github.com/chawel"
   # - title: "linkedin"
-  #   url: "https://br.linkedin.com/in/aronbordin"
+  #   url: "https://pl.linkedin.com/in/chawel"
   - title: "youtube"
     url: "https://www.youtube.com/channel/UC1ahnO3PNRSEe77_Ogvm5Yg"
 
@@ -103,7 +113,7 @@ page_ext: md
 post_layout: post
 page_layout: page
 # Format titles with titlecase?
-titlecase: true
+titlecase: false
 
 include: [".htaccess"]
 exclude: ["demo/*", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]

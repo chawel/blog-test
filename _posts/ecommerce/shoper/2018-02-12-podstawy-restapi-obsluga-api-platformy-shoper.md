@@ -14,19 +14,19 @@ share:
 date: 2018-02-12T18:14:02+01:00
 ---
 
-Jak szybko i w najprostszy sposób zacząć korzystać z *dobrodziejstw* wystawionych przez REST? Pokażę jak niewiele linijek kodu potrzeba aby postawić pierwszy krok w stronę automatyzacji obsługi Twojego sklepu. Python i jego świetna biblioteka Requests w akcji.
+Jak szybko i w najprostszy sposób skorzystać z *dobrodziejstw* wystawionych przez REST? Pokażę jak niewiele linijek kodu potrzeba, aby postawić pierwszy krok w stronę automatyzacji obsługi Twojego sklepu. Python i jego świetna biblioteka Requests w akcji.
 
 <!-- more -->
 
 ## Wstęp
 
-W tym poście postaram się, w miare zwięźle i bez zbędnych dygresji, pokazać jak odwoływać się do zasobów REST Api platformy Shoper, używając do tego zadania biblioteki Requests. Z uwagi na to, że ma być zwięźle, niestety nie będę omawiać biblioteki Requests, tak jak i samej koncepcji oraz zasad działania RESTowych serwisów. Jeżeli więc nie masz zielonego pojęcia o tym czym jest POST, GET, Token, nie wiesz do czego służy REST, warto takie informacje pozyskać (postaram się w niedalekiej przyszłości uzupełnić blog o wpisy wyjaśniające te zagdnienia). Teraz skupie się na totalnej praktyce i o tym jak zacząć przy *minimum* wiedzy i bez wysiłku (co nie oznacza, że jest to najlepszy sposób, powiem więcej, raczej jest to sposób dla osób, które muszą coś zrobić na wczoraj albo wykonują bardzo proste skrypty dla SIEBIE).
+W tym poście postaram się, w miare zwięźle i bez zbędnych dygresji, zaprezentować jak odwoływać się do zasobów REST API platformy Shoper. Użyję do tego zadania biblioteki Requests. Z uwagi na to, że ma być zwięźle, nie będę omawiać biblioteki Requests, jak również koncepcji i zasad działania RESTowych serwisów. Jeżeli więc nie masz zielonego pojęcia o tym czym są POST, GET, Token, nic Ci nie mówi określenie REST, to może być ciężko (postaram się w niedalekiej przyszłości uzupełnić blog o wpisy wyjaśniające te zagdnienia). Teraz skupie się na totalnej praktyce i na tym jak zacząć przy *minimum* wiedzy i bez wysiłku (co nie oznacza, że jest to najlepszy sposób, powiem więcej, jest to sposób dla osób, które muszą coś zrobić na wczoraj albo wykonują bardzo proste skrypty dla SIEBIE).
 
 ## Uzyskanie dostępu do zasobów (uwierzytelnienie klienta)
 
 ### Shoper - panel administracyjny
 
-#### Zacznijmy od stworzenia konta, z którego korzystać będzie nasz skrypt.
+Zacznijmy od stworzenia konta, z którego korzystać będzie nasz skrypt.
 
 W menu wybieramy *Konfiguracja > Administracja, system*
 
@@ -35,7 +35,7 @@ W menu wybieramy *Konfiguracja > Administracja, system*
 	<figcaption>Konfiguracja > Administracja, system</figcaption>
 </figure>
 
-Możemy stworzyć nową grupę administratorów (np. nazywająć ją *WebApi*). Wybieramy w prawym górnym rogu opcje *Dodaj grupę administratorów*
+Możemy stworzyć nową grupę administratorów (np. nazywająć ją *admin*). Wybieramy w prawym górnym rogu opcje *Dodaj grupę administratorów*
 
 <figure class="center">
 	<img src='{{ site.url }}/images/shoper/shoper_admingroup.gif' alt="">
@@ -54,7 +54,7 @@ Tworzymy nowego administratora. Wybieramy w prawym górnym rogu opcje *Dodaj adm
 	<figcaption>Formularz tworzenia administratora.</figcaption>
 </figure>
 
-Nadajemy odpowiednie uprawnienia grupie w której znajduje się nasz admin - proponuję nie przesadzać, zawsze lepiej coś dodać w miare potrzeb, bo jak wiemy 
+Nadajemy odpowiednie uprawnienia grupie w której znajduje się nasze konto - proponuję nie przesadzać, lepiej jest dodawać uprawnienia w miare potrzeb, bo jak powiadają 
 > "WITH GREAT POWER THERE MUST ALSO COME--GREAT RESPONSIBILITY!"
 
 Klikamy na *nazwa grupy > Uprawnienia*
@@ -63,9 +63,9 @@ Klikamy na *nazwa grupy > Uprawnienia*
 	<figcaption>Uprawnienia.</figcaption>
 </figure>
 
-Ok to na tyle co potrzebujemy z panelu administracyjnego.
+#### Ok to na tyle co potrzebujemy z panelu administracyjnego, teraz czas na Python'a.
 
-### Python
+### Skrypt
 
 Importujemy bibliotekę [Requests](http://docs.python-requests.org/en/latest/)
 
@@ -79,13 +79,13 @@ Kolejnym krokiem będzie zainicjowanie sesji, która ułatwi nam robotę (będzi
 s = requests.Session()
 {% endhighlight %}
 
-Jesteśmy gotowi do uzyskania Token'a (w uproszczeniu jest to kod przekazywany w nagłówku, aby serwis REST mógł nas rozpoznać, i udzielić dostępu do zasobów). Aby taki token uzyskać, musimy metodą POST przekazać login i hasło do konta, które stworzyliśmy w panelu administracyjnym sklepu.
+Jesteśmy gotowi do uzyskania token'a (w uproszczeniu jest to kod przekazywany w nagłówku, aby serwis REST mógł nas rozpoznać i udzielić dostępu do zasobów). Token uzyskujemy odwołując się do zasobu */auth* metodą POST, którą przekazujemy login i hasło do konta, stworzone wcześniej w panelu administracyjnym.
 
 {% highlight python %}
 response = s.post('https://<url_naszego_sklepu>/webapi/rest/auth', auth=(<login>, <haslo>))
 {% endhighlight %}
 
-Jeżeli login, hasło i adres naszego sklepu się zgadza, powinniśmy otrzymać odpowiedź, którą przypisaliśmy do zmiennej *response*. Odpowiedzi zwykle są opisane w składni JSON, ale metoda post() zwraca nam obiekt. Wypisując *response*, otrzymamy jedynie status odpowiedzi.
+Jeżeli login, hasło i adres naszego sklepu są prawidłowe, powinniśmy otrzymać odpowiedź do zmiennej *response*. Odpowiedzi zwykle są opisane w składni JSON, ale metoda post() zwraca nam obiekt. Wypisując do konsoli *response*, otrzymamy jedynie status odpowiedzi.
 
 {% highlight python %}
 >> print(response)
@@ -107,17 +107,19 @@ result = response.json()
 token = result['access_token']
 {% endhighlight %}
 
-Uzyskaliśmy *access_token* i przypisaliśmy go do zmiennej *token*. Wypada teraz go użyć. Jak pisałem, *access_token* musimy przekazywać jako element nagłówka każdego żądania, do tego własnie przyda się nam sesja, aby nie musieć pamiętać o jego przekazywaniu. Dodajemy go po prostu jako nagłówek sesji.
+Uzyskaliśmy *access_token* i przypisaliśmy go do zmiennej *token*. Wypada teraz go użyć. Jak pisałem wcześniej, *access_token* musimy przekazywać jako element nagłówka każdego żądania. Utworzona sesja pomoże nam się z tym uporać. Sesja będzie dla nas przechowywać nagłówki i automatycznie "doklejać" je do każdego żądania, które zostaną wywołane wewnątrz niej. Dodajmy więc token do sesji.
 
 {% highlight python %}
-s.headers.update(headers)
+s.headers.update({'Authorization': 'Bearer %s' % token})
 {% endhighlight %}
 
 Od tej pory nasze żądania są uwierzytelnione, co oznacza, że możemy swobodnie korzystać z zasobów REST Api.
 
 ### Przykładowe odwołanie się do zasobu
 
-Do dyspozycji, mamy operacje [CRUD](https://pl.wikipedia.org/wiki/CRUD). Wszystkie zasoby (opisane) znajdziemy w [Dokumentacja REST API Shoper](https://developers.shoper.pl/developers/api/getting-started). Tak więc jak to mówią: "The sky is the limit". Przykład uzyskania listy produktów:
+Do dyspozycji, mamy operacje [CRUD](https://pl.wikipedia.org/wiki/CRUD). Wszystkie zasoby (opisane z przykładami) znajdziemy w [Dokumentacja REST API Shoper](https://developers.shoper.pl/developers/api/getting-started). Pozostaje jedynie dobrać odpowiednie zasoby i umiejętnie je wykorzystać. 
+
+Na koniec mały przykład, jak uzyskać listę produktówa w naszym sklepie:
 
 {% highlight python %}
 response = s.get(URL + '/products')

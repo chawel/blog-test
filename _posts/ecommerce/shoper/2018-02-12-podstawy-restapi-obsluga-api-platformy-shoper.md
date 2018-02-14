@@ -6,7 +6,7 @@ categories: ecommerce/shoper
 description: Wstęp do automatyzacji Shoper, czyli Python (Requests) + REST Api w akcji.
 tags: [shoper, rest, python]
 image:
-  feature:
+  feature: rest.jpg
   credit:
   creditlink:
 comments:

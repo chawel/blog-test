@@ -158,3 +158,15 @@ print(response.json())
 Najdogodniejszą sytuacją jest, kiedy mamy dostęp do bazy SQL lub chociaż pliku CSV z numerami aukcji przypisanymi do jakiegoś identyfikatora wspólnego dla danych wariantów (parent_id, lub przedrostek w kodzie produktu, cokolwiek co może pomóc w automatycznym zgrupowaniu numerów aukcji). Wtedy wystarczy zapętlić nasz kod u góry i cieszyć się z automatycznego grupowania ofert.
 
 Jeżeli nie zrobiliśmy pliku, nie mamy bazy z danymi, możemy próbować łączyć aukcje po np. tytule aukcji, który jeżeli jest w jakiejś części taki sam dla wszystkich wariantów - to można coś ugrać, ale o tym w kolejnych wpisach na blogu.
+
+## BONUS
+
+Jeżeli chcemy uzyskać w formie JSON oferty jakiekolwiek sprzedawcy, możemy odwołać się do zasobu:
+`https://allegro.pl/variants-editor/offers/search?sellerId=<id_sprzedawcy>`
+
+*<id_sprzedawcy>* znajdziemy np. na aukcji, w odnośniku do jego ocen (wystarczy kliknąć na nick i w miejscu *<id_sprzedawcy>* będzie numer - o ten właśnie chodzi.
+`https://allegro.pl/uzytkownik/<id_sprzedawcy>/oceny`
+
+Dodatkowo, można odfiltrowywać konkretne numery aukcji:
+`https://allegro.pl/variants-editor/offers/search?sellerId=<id_sprzedawcy>&query=<numer_aukcji>`
+

@@ -392,6 +392,7 @@ ul.social-buttons li a:active {
 		margin-bottom: 20px;
 	}
 	img {
+        width: 100%;
 		@include border-radius(3px,0,0,3px); // round image corners
 	}
 }

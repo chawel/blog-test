@@ -86,6 +86,6 @@ Znowu kłoda, Zespół Allegro nie pomyślał, aby udostępnić cokolwiek, zasó
 	<figcaption>Jak długo jeszcze czekać będziemy na NIEZBĘDNE narzędzia?</figcaption>
 </figure>
 
-Brrr... aż mi ciarki po plecach przeszły na myśl o ręcznym łączeniu 10000 aukcji. Więc, dwie kawy później, przedstawiam koncepcję i sposób jak można to częściowo zautomatyzować [w tym poście](link)
+Brrr... aż mi ciarki po plecach przeszły na myśl o ręcznym łączeniu 10000 aukcji. Więc, dwie kawy później, przedstawiam koncepcję i sposób jak można to częściowo zautomatyzować [w tym poście]({{ site.baseurl }}{% post_url /ecommerce/allegro/2018-02-14-allegro-pl-automatyczne-grupowanie-aukcji-wielowariantowosc %})
 
 Koniec tego *rant'u*, monopol Allegro.pl na rynku zmusza wielu by się dostosowali albo "niech giną", a łatwo nie jest. W kolejnych wpisach szerzej omawiać będę jak korzystać z zasobów starego WebAPI (co nie jest takie proste), oraz zasobów REST API. Będą gotowe skrypty dla ułatwiania sobie procesu wystawiania aukcji na nowych zasadach. Zachęcam do odwiedzania mojego bloga.

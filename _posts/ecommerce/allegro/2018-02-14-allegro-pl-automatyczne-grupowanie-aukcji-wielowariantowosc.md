@@ -161,7 +161,7 @@ Jeżeli nie zrobiliśmy pliku, nie mamy bazy z danymi, możemy próbować łącz
 
 ## BONUS
 
-Jeżeli chcemy uzyskać w formie JSON oferty jakiekolwiek sprzedawcy, możemy odwołać się do zasobu:
+Jeżeli chcemy uzyskać w formie JSON oferty dowolnego sprzedawcy, możemy odwołać się do zasobu:
 `https://allegro.pl/variants-editor/offers/search?sellerId=<id_sprzedawcy>`
 
 *id_sprzedawcy* znajdziemy np. na aukcji, w odnośniku do jego ocen (wystarczy kliknąć na nick i w miejscu *id_sprzedawcy* będzie numer - o ten właśnie chodzi.

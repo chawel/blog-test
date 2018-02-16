@@ -6,7 +6,7 @@ categories: ecommerce/allegro
 description:
 tags: [allegro, python, selenium]
 image:
-  feature: captcha_robot.gif
+  feature: captcha_robot_small.gif
   credit: Captcha robot
   creditlink: https://www.youtube.com/watch?v=fsF7enQY8uI
 comments:

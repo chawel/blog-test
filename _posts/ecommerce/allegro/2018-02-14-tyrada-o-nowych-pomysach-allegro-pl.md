@@ -42,20 +42,20 @@ Można nawet skorzystać z REST do autentykacji w starym WebApi, proces jest *ba
 3. W przeglądarce widzisz znajomy formularz, logujesz się do swojego konta na allegro.pl
 4. Wyrażasz zgodę na dostęp danej aplikacji do twojego konta
 5. Pamiętasz punkt 1? Podawałeś tam *redirect_uri* - był to adres na który ma zostać zwrócony *kod autoryzujący* ("hola, hola to co ja musze jakiś serwer stawiać i odbierać żądania?" krótko: tak)
-6. Gottagofast - masz teraz 10 sekund (jak na filmach z bombą) aby przesłać dalej uzyskany kod wykonując rządanie POST na odpowiedni adres.
+6. Gottagofast - masz teraz 10 sekund (jak na filmach z bombą) aby przesłać dalej uzyskany kod wykonując żądanie POST na odpowiedni adres.
 7. PROFIT! Nareszcie upragniony JSON z naszym TOKENEM (ważnym przez 12 godzin - ale spokojnie, na 365 dni możesz zapomnieć o procedurze którą przed chwilą przeszedłeś, od teraz gdy obecny token wygaśnie, możesz użyć uzyskany w odpowiedzi - refresh_token, dzięki któremu uzyskasz nowy, świeżutki i żyjący również 12 godzin - access_token).
 
 #### Czy jest źle? 
 
-No nie do końca, bo jest to [OAuth 2.0](https://oauth.net/2/) i niestety będziemy musieli się przyzwyczaić, bo kolejne serwisy w ten sam sposób uwierzytelniają klienta. 
+No nie do końca, bo jest to [OAuth 2.0](https://oauth.net/2/) i ~~niestety~~ będziemy musieli się przyzwyczaić, bo kolejne serwisy w ten sam sposób uwierzytelniają klienta. 
 
 Kiedy uporamy się już z procesem uwierzytelniania i uzyskiwania tokenów, możemy zacząc bez przeszkód korzystać z łatwodostępnych i bogatych zasobów REST API... NIESTETY NIE! Obecnie REST Allegro wystawia mniej niż 10 zasobów, z których najistotniejszym jest *after-sales-service-conditions* (bez którego nie wystawimy aukcji z nowym opisem).
 
-Nie krytykuję OAuth 2 ani flow tego typu autoryzacji, raczej jest to krytyka tego, że nadal, i tak, użyć musimy WSDL - do którego można zalogować się podając po prostu login i hasło, a dostęp do REST API na obecną chwile daje wątpliwe korzyści. Nie możemy więc w pełni zautomatyzować całego procesu, potrzebujemy ingerencji użytkownika na etapie logowania jak i serwer który odbierze token (*redirect_url*).
+Nie krytykuję OAuth 2 ani flow tego typu autoryzacji, raczej jest to krytyka tego, że nadal bez względu na REST API, użyć musimy WSDL - do którego można zalogować się podając po prostu login i hasło, a dostęp do REST API na obecną chwile daje wątpliwe korzyści. Nie możemy więc w pełni zautomatyzować całego procesu, potrzebujemy ingerencji użytkownika na etapie logowania jak i serwer który odbierze token (*redirect_url*).
 
 Więc o co tyle zachodu skoro i tak będziemy korzystać z zasobów starego WebAPI? Jak pisałem wcześniej, jest to etap którego nie możemy pominąć, jeżeli chcemy wystawić aukcję z nowym opisem. 
 
-Nota bene wykorzystanie tokena do autentykacji w WSDL jest bezpieczniejsze niż używanie starej metody, czyli loginu i hasła do konta allegro, więc uznaję to jako główny (jedyny) argument "ZA" używaniem REST w obecnej formie.
+**Nota bene wykorzystanie tokena do autentykacji w WSDL jest bezpieczniejsze niż używanie starej metody, czyli loginu i hasła do konta allegro, więc uznaję to jako ~~główny~~ jedyny argument "ZA" używaniem REST w obecnej formie.**
 
 ### Wielowariantowość
 
@@ -70,11 +70,13 @@ Allegro nie widzi problemu, uważa że regulamin który pośrednio wymusza, aby 
 
 Za czasów opisów wspierających HTML, przedsiębiorcy radzili sobie z tym na różne sposoby, najpopularniejszym było wstawianie jako miniatury (zdjęcia poglądowego wyświetlanego na liscie aukcji) zbiorczego obrazu, przedstawiającego wszystkie warianty (kolor, wzór, wielkości), a w opisie, umieszczanie kilku galerii z podpisami kodu czy nazwy konkretnego wariantu i prośba o przekazanie wyboru w mailu / komentarzu do formularza pozakupowego. I to działało. 
 
-Obecna sytuacja komplikuje wszystko, bardzo komplikuje. Cóż zrobić kiedy mamy limit zdjęć do importu, a tylko one mogą być używane w opisie aukcji? Jak wstawić tabele rozmiarów, czy kilka galerii? Słowem: "Lypa". Najlogiczniejsze wydaje się wystawienie każdego wariantu osobno i połączenie ich przez dostępny dla danej kategorii parametr - czyli stworzenie wielowariantowości. 
+Obecna sytuacja komplikuje wszystko, bardzo komplikuje. Cóż zrobić kiedy mamy limit zdjęć do importu, a tylko one mogą być używane w opisie aukcji? Jak wstawić tabele rozmiarów (edit: allegro ma w planie wprowadzenie możliwości wstawiania tabel a nawet video do opisu aukcji), czy kilka galerii? 
+
+Słowem: "Lypa". Najlogiczniejsze wydaje się wystawienie każdego wariantu osobno i połączenie ich przez dostępny dla danej kategorii parametr - czyli stworzenie wielowariantowości. 
 
 *Dygresja: z jednej aukcji nagle powstaje 10-20, to dlatego lista aukcji w kategorii ma po milion stron, i dlatego zajmie ci wieki by przebrnąć przez aukcje jednego sprzedawcy, który wystawił właśnie po 20 wariantów każdego buta na pojedyńczych aukcjach.*
 
-Znowu kłoda, Zespół Allegro nie pomyślał, aby udostępnić cokolwiek, zasób w Web Api czy w REST, co mogłoby pomóc w automatyzacji łączenia aukcji. Zamiast tego, poleca klikanie. 
+Znowu kłoda, Zespół Allegro nie pomyślał, aby udostępnić cokolwiek, zasób w WebAPI czy w REST, co mogłoby pomóc w automatyzacji łączenia aukcji. Zamiast tego, poleca klikanie. 
 
 <figure class="center">
 	<img src='{{ site.url }}/images/allegro/rant.jpg' alt="">
@@ -88,4 +90,4 @@ Znowu kłoda, Zespół Allegro nie pomyślał, aby udostępnić cokolwiek, zasó
 
 Brrr... aż mi ciarki po plecach przeszły na myśl o ręcznym łączeniu 10000 aukcji. Więc, dwie kawy później, przedstawiam koncepcję i sposób jak można to częściowo zautomatyzować [w tym poście]({{ site.baseurl }}{% post_url /ecommerce/allegro/2018-02-14-allegro-pl-automatyczne-grupowanie-aukcji-wielowariantowosc %})
 
-Koniec tego *rant'u*, monopol Allegro.pl na rynku zmusza wielu by się dostosowali albo "niech giną", a łatwo nie jest. W kolejnych wpisach szerzej omawiać będę jak korzystać z zasobów starego WebAPI (co nie jest takie proste), oraz zasobów REST API. Będą gotowe skrypty dla ułatwiania sobie procesu wystawiania aukcji na nowych zasadach. Zachęcam do odwiedzania mojego bloga.
+Podsumowując ten mały *rant*, monopol Allegro.pl na rynku serwisów aukcyjnych zmusza wielu by się dostosowali albo "niech giną", a łatwo nie jest. W kolejnych wpisach szerzej omawiać będę jak korzystać z zasobów starego WebAPI (co nie jest takie proste), oraz zasobów REST API. Będą gotowe skrypty dla ułatwiania sobie procesu wystawiania aukcji na nowych zasadach. Zachęcam do odwiedzania mojego bloga.

@@ -104,7 +104,7 @@ webdriver = Firefox(r'C:\path\to\webdriver\geckodriver.exe')
 
 Idzie dobrze, więc od razu otwieramy naszą przeglądarkę
 {% highlight python %}
-webdriver.get('http://allegro.pl/myaccount/')
+webdriver.get('https://allegro.pl/myaccount/')
 {% endhighlight %}
 
 Aby wypełnić automatycznie formularz logowania

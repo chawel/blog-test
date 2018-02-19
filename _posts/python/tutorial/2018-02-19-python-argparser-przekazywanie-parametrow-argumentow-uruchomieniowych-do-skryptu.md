@@ -63,11 +63,11 @@ Oczywiście, jest to bardzo pobieżne wytłumaczenie i nie wyczerpuje tematu. Li
 
 ## Moduł argparse
 
-Python w swojej standardowej bibliotece posiada bardzo sprytny i ułatwiający obsługę argumentów linii komend moduł o nazwie [argparse](https://docs.python.org/3.5/library/argparse.html) którego teraz będziemy używać. Warto wspomnieć, że jest to najłatwiejszy sposób, ale nie jedyny. Na upartego możemy "zejść poziom niżej" i zrobić to samo przy użyciu [sys.argv](https://docs.python.org/3/library/sys.html#sys.argv), ale uważam że nawet dla prostych skryptów, lepiej jest używać *argparse*.
+Python w swojej standardowej bibliotece posiada bardzo sprytny i ułatwiający obsługę argumentów linii komend moduł o nazwie [argparse](https://docs.python.org/3.5/library/argparse.html). Warto wspomnieć, że jest to najłatwiejszy sposób, ale nie jedyny. Na upartego możemy "zejść poziom niżej" i zrobić to samo przy użyciu [sys.argv](https://docs.python.org/3/library/sys.html#sys.argv), ale uważam że nawet dla prostych skryptów, lepiej jest używać *argparse*.
 
 ### Przykład
 
-Bez zbędnych formalności, zacznijmy od przykładu użycia w skrypcie.
+Bez zbędnych formalności, zacznijmy od przykładu użycia.
 
 Importujemy moduł
 {% highlight python %}
@@ -141,7 +141,7 @@ Argumenty zaczynające się jednym myślnikiem są skróconymi wersjami, podwój
 
 #### Jak sprawdzić dostępne argumenty?
 
-To jedna z ważniejszych właściwości tego modułu, na starcie, bez dodatkowej pracy, sam przygotuje dla nas magiczny argument *-h*. Pozwala on na wyświetlenie automatycznie wygenerowanej listy argumentów, wraz z ich opisami (które podaliśmy w parametrze *description*), typami oraz domyślnymi wartościami (parametr *default*) - czyli tak zwany *help*. Zobaczmy co się stanie gdy go użyjemy.
+To jedna z ważniejszych właściwości tego modułu - na starcie, bez dodatkowej pracy, sam przygotuje dla nas magiczny argument *-h*. Pozwala on na wyświetlenie automatycznie wygenerowanej listy argumentów, wraz z ich opisami (które podaliśmy w parametrze *description*), typami (parametr *type*) oraz domyślnymi wartościami (parametr *default*) - czyli tak zwany *help*. Zobaczmy co się stanie gdy go użyjemy.
 
 ```
 $ python py.py -h

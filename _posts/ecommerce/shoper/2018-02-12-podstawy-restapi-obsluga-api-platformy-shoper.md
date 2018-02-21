@@ -20,7 +20,7 @@ Jak szybko i w najprostszy sposób skorzystać z *dobrodziejstw* wystawionych pr
 
 ## Wstęp
 
-W tym poście postaram się, w miare zwięźle i bez zbędnych dygresji, zaprezentować jak odwoływać się do zasobów REST API platformy Shoper. Użyję do tego zadania biblioteki Requests. Z uwagi na to, że ma być zwięźle, nie będę omawiać biblioteki Requests, jak również koncepcji i zasad działania RESTowych serwisów. Jeżeli więc nie masz zielonego pojęcia o tym czym są POST, GET, Token, nic Ci nie mówi określenie REST, to może być ciężko (postaram się w niedalekiej przyszłości uzupełnić blog o wpisy wyjaśniające te zagdnienia). Teraz skupie się na totalnej praktyce i na tym jak zacząć przy *minimum* wiedzy i bez wysiłku (co nie oznacza, że jest to najlepszy sposób, powiem więcej, jest to sposób dla osób, które muszą coś zrobić na wczoraj albo wykonują bardzo proste skrypty dla SIEBIE).
+W tym poście postaram się, w miare zwięźle i bez zbędnych dygresji, zaprezentować jak odwoływać się do zasobów REST API platformy Shoper. Użyję do tego zadania biblioteki Requests. Z uwagi na to, że ma być zwięźle, nie będę omawiać biblioteki Requests, jak również koncepcji i zasad działania RESTowych serwisów. Jeżeli więc nie masz zielonego pojęcia o tym czym są POST, GET, Token, nic Ci nie mówi określenie REST, to może być ciężko (postaram się w niedalekiej przyszłości uzupełnić blog o wpisy wyjaśniające te zagadnienia). Teraz skupie się na totalnej praktyce i na tym jak zacząć przy *minimum* wiedzy i bez wysiłku (co nie oznacza, że jest to najlepszy sposób, powiem więcej, jest to sposób dla osób, które muszą coś zrobić na wczoraj albo wykonują bardzo proste skrypty dla SIEBIE).
 
 ## Uzyskanie dostępu do zasobów (uwierzytelnienie klienta)
 
@@ -35,32 +35,46 @@ W menu wybieramy *Konfiguracja > Administracja, system*
 	<figcaption>Konfiguracja > Administracja, system</figcaption>
 </figure>
 
-Możemy stworzyć nową grupę administratorów (np. nazywająć ją *admin*). Wybieramy w prawym górnym rogu opcje *Dodaj grupę administratorów*
+Wybieramy w prawym górnym rogu opcje *Dodaj grupę administratorów*, aby stworzyć nową grupę administratorów (np. nazywając ją *admin*).
 
 <figure class="center">
-	<img src='{{ site.url }}/images/shoper/shoper_admingroup.gif' alt="">
+	<img src='{{ site.url }}/images/shoper/shoper_admin_group_btn.gif' alt="">
 	<figcaption>Tworzenie grupy administratorów.</figcaption>
 </figure>
 
-Tworzymy nowego administratora. Wybieramy w prawym górnym rogu opcje *Dodaj administratora*
+W momencie tworzenia grupy, musimy zdefiniować *Typ dostępu*. W naszym przypadku chcemy, aby konta z naszej grupy służyły do korzystania z WebAPI (REST). Wybieramy więc opcję *Dostęp do WebApi* i zatwierdzamy. 
 
 <figure class="center">
-	<img src='{{ site.url }}/images/shoper/shoper_admin.gif' alt="">
-	<figcaption>Tworzenie administratora.</figcaption>
+	<img src='{{ site.url }}/images/shoper/shoper_admin_group.gif' alt="">
+	<figcaption>Tworzenie grupy administratorów.</figcaption>
 </figure>
+
+W momencie utworzenia grupy, pojawią się po lewej stronie zakładki: *Dane podstawowe*, *Uprawnienia* oraz *Administratorzy*. W zakładce *Uprawnienia* ustalamy do jakich zasobów i w jakim zakresie admini z tej grupy będą mieli dostęp (odczyt, dodawanie, edycja itd.) - proponuję nie przesadzać, lepiej jest dodawać uprawnienia w miare potrzeb, bo jak powiadają 
+> "WITH GREAT POWER THERE MUST ALSO COME--GREAT RESPONSIBILITY!"
+
+<figure class="center">
+	<img src='{{ site.url }}/images/shoper/shoper_admin_group_admin.gif' alt="">
+	<figcaption>Karta grupy administratorów.</figcaption>
+</figure>
+
+Przechodzimy do zakładki *Administratorzy* i dodajemy nowe konto.
 
 <figure class="center">
 	<img src='{{ site.url }}/images/shoper/shoper_admin_form.gif' alt="">
 	<figcaption>Formularz tworzenia administratora.</figcaption>
 </figure>
 
-Nadajemy odpowiednie uprawnienia grupie w której znajduje się nasze konto - proponuję nie przesadzać, lepiej jest dodawać uprawnienia w miare potrzeb, bo jak powiadają 
-> "WITH GREAT POWER THERE MUST ALSO COME--GREAT RESPONSIBILITY!"
-
-Klikamy na *nazwa grupy > Uprawnienia*
+W każdym momencie możemy edytować naszą grupę administratorów, a co za tym idzie, również zmieniać ich uprawnienia (jeżeli udostępniłeś za mało - w ten sposób można je rozszerzyć). Na liście grup klikamy na *nazwa grupy > Uprawnienia*
 <figure class="center">
 	<img src='{{ site.url }}/images/shoper/shoper_admingroup_prem.gif' alt="">
 	<figcaption>Uprawnienia.</figcaption>
+</figure>
+
+Kolejnych administratorów dodawać możemy wybierając przycisk *Dodaj administratora* w prawym górnym rogu listy grup, lub podczas edycji grupy, wchodząc w zakładkę *Administratorzy*
+
+<figure class="center">
+	<img src='{{ site.url }}/images/shoper/shoper_admin_btn.gif' alt="">
+	<figcaption>Tworzenie administratora.</figcaption>
 </figure>
 
 #### Ok to na tyle co potrzebujemy z panelu administracyjnego, teraz czas na Python'a.
@@ -92,7 +106,7 @@ Jeżeli login, hasło i adres naszego sklepu są prawidłowe, powinniśmy otrzym
 <Response [200]>
 {% endhighlight %}
 
-Aby dobrać się do odpowiedzi z tokenem, musimy podejrzeć co konretnie zwrócił nam REST.
+Aby dobrać się do odpowiedzi z tokenem, musimy podejrzeć co konkretnie zwrócił nam REST.
 
 {% highlight python %}
 >> print(response.json())
@@ -119,14 +133,14 @@ Od tej pory nasze żądania są uwierzytelnione, co oznacza, że możemy swobodn
 
 Do dyspozycji, mamy operacje [CRUD](https://pl.wikipedia.org/wiki/CRUD). Wszystkie zasoby (opisane z przykładami) znajdziemy w [Dokumentacja REST API Shoper](https://developers.shoper.pl/developers/api/getting-started). Pozostaje jedynie dobrać odpowiednie zasoby i umiejętnie je wykorzystać. 
 
-Na koniec mały przykład, jak uzyskać listę produktówa w naszym sklepie:
+Na koniec mały przykład, jak uzyskać listę produktów w naszym sklepie:
 
 {% highlight python %}
 response = s.get(URL + '/products')
 print(response.json())
 {% endhighlight %}
 
-Warto zauważyć, że w odpowiedzi dostajemy tylko jedną ze stron, zawierającą określoną liczbę rekordów (kolekcje). Na tym zakończę ten post, ponieważ to, jak po kolei "przejść" po tych stronach (stronicowanie - czy jak coraz częściej się spotyka, paginacja), wymaga wiedzy jak dodawać do naszych rządań parametry, a o tym w następnej części o REST Api.
+Warto zauważyć, że w odpowiedzi dostajemy tylko jedną ze stron, zawierającą określoną liczbę rekordów (kolekcje). Na tym zakończę ten post, ponieważ to, jak po kolei "przejść" po tych stronach (stronicowanie - czy jak coraz częściej się spotyka, paginacja), wymaga wiedzy jak dodawać do naszych żądań parametry, a o tym w następnej części o REST Api.
 
 
 

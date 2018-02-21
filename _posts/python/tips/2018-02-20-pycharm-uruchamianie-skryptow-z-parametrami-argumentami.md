@@ -14,11 +14,11 @@ share:
 date: 2018-02-20T19:34:25+01:00
 ---
 
-## Szybki Tip
-
-Niedawno omawiałem w [tym wpisie]({{ site.baseurl }}{% post_url /python/tutorial/2018-02-19-python-argparse-przekazywanie-parametrow-argumentow-uruchomieniowych-do-skryptu %}), jak dodać obsługę argumentów linii komend naszych skryptów w Python. Na szybko postaram się pokazać w jaki sposób możemy odpalać skrypty, przekazując argumenty (parametry) wywołania w [PyCharm](https://jetbrains.com/pycharm/). Sprawa jest banalnie prosta.
+Niedawno omawiałem, jak dodać obsługę argumentów linii komend naszych skryptów napisanych w Python. Na szybko postaram się pokazać w jaki sposób możemy odpalać skrypty, przekazując argumenty (parametry) wywołania w [PyCharm](https://jetbrains.com/pycharm/). Sprawa jest banalnie prosta.
 
 <!-- more -->
+
+Post o którym wspomniałem: [Python moduł argparse]({{ site.baseurl }}{% post_url /python/tutorial/2018-02-19-python-argparse-przekazywanie-parametrow-argumentow-uruchomieniowych-do-skryptu %})
 
 ## Profile uruchamiania skrytpu
 

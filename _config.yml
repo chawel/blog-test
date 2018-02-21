@@ -56,11 +56,12 @@ owner:
   site:           http://cwsi.pl/about
   avatar:         images/avatar.jpg
   bio:            '"Im mniej nużącej pracy manualnej tym lepiej, zwłaszcza kiedy musimy sami prowadzić sklep internetowy". Autor bloga cwsi.pl o tematyce automatyzacji w dziedzinie e-commerce. Entuzjasta języków skryptowych (szczególnie Python).'
-  email:          you@email.com
+  email:          pawlikus@gmail.com
   # Twitter nick for use in Twitter cards and follow button.
   # twitter: chawel # if no twitter in this config, the twitter follow button will be removed
   # GitHub nick for use in follow button in author block.
   github: chawel
+  facebook: cwsipl
 
 # Twitter account associated with the site if different from owner/author twitter account.
 # Used in Twitter cards.
@@ -70,11 +71,8 @@ twitter:
 social:
   - title: "github"
     url: "https://github.com/chawel"
-  # - title: "linkedin"
-  #   url: "https://pl.linkedin.com/in/chawel"
   - title: "youtube"
     url: "https://www.youtube.com/channel/UC1ahnO3PNRSEe77_Ogvm5Yg"
-
 # Background image to be tiled on all pages
 background:
 
@@ -100,7 +98,7 @@ sass:
 permalink:   /:categories/:title/
 
 # Amount of post to show on home page
-paginate: 5
+paginate: 10
 
 # if true, shows the floatting share buttons
 float_share: false

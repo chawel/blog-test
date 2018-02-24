@@ -12,7 +12,7 @@
     {% for post in site.related_posts limit:2 offset:1 %}
       <div class="list-item">
         <h4><a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a></h4>
-        <span>Data publikacji <time datetime="{{ post.date | date_to_xmlschema }}">{% include translated_date.html date=page.date format=site.date_format %}</time></span>
+        <span>Data publikacji <time datetime="{{ post.date | date_to_xmlschema }}">{% include translated_date.html date=post.date format=site.date_format %}</time></span>
       </div><!-- /.list-item -->
     {% endfor %}
   </div><!-- /.read-more-list -->

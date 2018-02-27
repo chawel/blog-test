@@ -16,6 +16,8 @@ date: 2018-02-26T20:37:42+01:00
 
 Niezwykle ważny temat, wręcz fundament dla każdego administratora sklepu internetowego, czyli pliki z danymi - tym razem na warsztat bieżemy te w formacie CSV. Omówię na szybko jak w prosty sposób zacząć z nich korzystać i ożenić je z naszymi skryptami w Pythonie. Skupie się na ich odczycie i zapisie danych.
 
+<!-- more -->
+
 ## Ciut teorii i informacji o plikach CSV
 
 Chociaż podejrzewam Was o znajomość z plikiem tego rodzaju, to jednak zaryzykuję i wytłumaczę któż on zaś.

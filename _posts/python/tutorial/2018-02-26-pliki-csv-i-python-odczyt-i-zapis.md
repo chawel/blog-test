@@ -9,7 +9,7 @@ image:
   feature: csv_python.jpg
   credit:
   creditlink:
-comments:
+comments: true
 share:
 date: 2018-02-26T20:37:42+01:00
 ---

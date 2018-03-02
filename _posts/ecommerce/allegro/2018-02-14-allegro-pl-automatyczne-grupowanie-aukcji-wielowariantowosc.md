@@ -61,7 +61,7 @@ Po zatwierdzeniu, widzimy jakie parametry przekazujemy w żądaniu. Możemy je z
 
 Ok, wszystko ładnie, tylko skoro są żądania, jest zasób do którego je wysyłamy, są odpowiedzi w formie JSON - to na co nam te całe "udawanie" i Selenium? Szczerze - z lenistwa, bo prawdopodobnie jest bardziej wyrafinowany sposób jak obejść cały proces logowania bez otwierania przeglądarki, ale byłoby to bardzo trudne i czasochłonne (a po to właśnie automatyzujemy - aby oszczędzić czas i ~~oddawać się błogiemu nieróbstwu~~ poświęcać się rzeczom ważniejszym).
 
-Dla zainteresowanych, powiem tylko, że Allegro.pl stosuje zabezpieczenia przed XSS (wektor ataku), wiele elementów w plikach cookies, a co najgorsze... Niekiedy przy logowaniu może pojawić się wymóg rozwiązania **CAPTCHA**.
+Dla zainteresowanych, powiem tylko, że Allegro.pl stosuje zabezpieczenia przed ~~XSS~~ [CSRF](https://pl.wikipedia.org/wiki/Cross-site_request_forgery), wiele elementów w plikach cookies, a co najgorsze... Niekiedy przy logowaniu może pojawić się wymóg rozwiązania **CAPTCHA**.
 
 > A wild CAPTCHA appeard!
 

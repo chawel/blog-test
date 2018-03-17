@@ -114,6 +114,14 @@ Jeżeli chcemy, aby nikt się nie pomylił i w np. argumencie który ma przyjmow
 parser.add_argument('-i', '--ilosc', help="Argument o konkretnym typie i wartością domyślną", type=int, default=5, required=False)
 {% endhighlight %}
 
+Aby wyświetlić wartości przekazane w tych argumentach, odwołujemy się do `args` i po kropce podajemy nazwę argumentu.
+{% highlight python %}
+args = parser.parse_args()
+print("Podana nazwa pliku: ", args.filename)
+print("Wartosc argumentu dodatkowego: ", args.argument)
+print("Wartosc argumentu z typem i domyslna wartoscia: ", args.ilosc)
+{% endhighlight %}
+
 Zobaczmy jak nasz skrypt radzi sobie z argumentami
 ```
 $ python py.py nazwa_pliku

@@ -66,7 +66,7 @@ with open('plik.csv', 'r') as csvfile:
 #### Zatrzymajmy się tutaj na chwilę, ponieważ musimy omówić istotną sprawę - kodowanie.
 Chodzi o to, aby przy odczycie z pliku polskich znaków ([litery diakrytyzowane](https://pl.wikipedia.org/wiki/Znaki_diakrytyczne)), nie zmieniały się one w tzw. *krzaki*. Temat kodowania, zwłaszcza w Pythonie, to temat rzeka, który zasługuje na nowy wpis (a nawet serię). Co ważne, musicie pamiętać, że wszystkie wpisy na blogu traktują o najnowszej wersji Pythona (3.5+). W skrócie, wersja Python 2 w inny sposób traktuje typ `string` a co za tym idzie i jego kodowanie. 
 
-Kolejnym istotnym pojęciem jest **Unicode (UTF-8)**, znowu w skrócie, jest to uniwersalny zestaw znaków (jakby zbiór) w komputerach, stworzony by zawierał wszystkie znaki ze wszystkich języków. Tyle teorii. W praktyce, obecnie większość plików tekstowych zapisujemy właśnie w kodowaniu `UTF-8`, nie bawimy się już w `ISO 8859-2` (mam nadzieję). Daje to możliwość umieszczania w takim tekcie wszelkich liter diakrytyzowanych, z różnych języków, i nikt nie musi się głowić *"hmm.. krzaki... jakie tu jest kodowanie?". 
+Kolejnym istotnym pojęciem jest **Unicode (UTF-8)**, znowu w skrócie, jest to uniwersalny zestaw znaków (jakby zbiór) w komputerach, stworzony by zawierał wszystkie znaki ze wszystkich języków. Tyle teorii. W praktyce, obecnie większość plików tekstowych zapisujemy właśnie w kodowaniu `UTF-8`, nie bawimy się już w `ISO 8859-2` (mam nadzieję). Daje to możliwość umieszczania w takim tekcie wszelkich liter diakrytyzowanych, z różnych języków, i nikt nie musi się głowić *"hmm.. krzaki... jakie tu jest kodowanie?"*. 
 
 #### Dlatego dla uproszczenia: Zapisujmy pliki w kodowaniu UTF-8, i otwierajmy je też w UTF-8.
 

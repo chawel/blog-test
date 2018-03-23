@@ -229,8 +229,10 @@ auth = client.service.doLoginEnc(
     userHashPassword=base64.b64encode(sha256_application_password).decode('utf-8'), 
     countryCode=1,
     webapiKey='<nasz_klucz_webapi>', 
-    localVersion='<uzyskany_wczesniej_verKey>'
+    localVersion=version_key
 )
+
+session = auth.sessionHandlePart
 {% endhighlight %}
 
 Niestety, nie zmienia to faktu, że nadal będę musiał napisać o tym jak żonglować dwoma API na raz, bo tak jak zdejmuje to ciężar autoryzacji w WebAPI przez REST API, to i tak nadal potrzebujemy REST API do procesu wystawiania aukcji (co zmniejsza jeszcze bardziej jego użyteczność na chwilę obecną).

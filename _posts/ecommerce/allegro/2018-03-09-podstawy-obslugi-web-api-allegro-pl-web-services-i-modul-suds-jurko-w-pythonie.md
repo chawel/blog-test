@@ -146,7 +146,7 @@ Uzyskaliśmy fundamentalną wiedzę jak porozumiewać się z Web API, możemy wi
 
 #### UWAGA! Jest to bardzo niebezpieczna metoda! Przekazujemy dane do NASZEGO KONTA na Allegro w formie plain text!
 {% highlight python %}
-auth = self.service.doLogin(
+auth = client.service.doLogin(
     userLogin='<login>',
     userHashPassword='<haslo>', 
     countryCode=1,
@@ -166,10 +166,32 @@ To jest nasz identyfikator sesji, który przekazywać będziemy w parametrach `s
 
 {% highlight python %}
 import hashlib
+import base64
 
-auth = self.service.doLoginEnc(
+auth = client.service.doLoginEnc(
     userLogin='<login>',
-    userHashPassword=hashlib.sha256('<haslo>').digest().encode('base64'), 
+    userHashPassword=base64.b64encode(hashlib.sha256('<haslo>'.encode('utf-8')).digest()).decode('utf-8'), 
+    countryCode=1,
+    webapiKey='<nasz_klucz_webapi>', 
+    localVersion='<uzyskany_wczesniej_verKey>'
+)
+{% endhighlight %}
+
+## Cały przykładowy kod
+{% highlight python %}
+from suds.client import Client
+import hashlib
+import base64
+
+client = Client('https://webapi.allegro.pl/service.php?wsdl')
+
+response = client.service.doQueryAllSysStatus(webapiKey='<nasz_klucz_webapi>', countryId=1)
+
+version_key = response.item[0].verKey
+
+auth = client.service.doLoginEnc(
+    userLogin='<login>',
+    userHashPassword=base64.b64encode(hashlib.sha256('<haslo>'.encode('utf-8')).digest()).decode('utf-8'), 
     countryCode=1,
     webapiKey='<nasz_klucz_webapi>', 
     localVersion='<uzyskany_wczesniej_verKey>'
@@ -177,4 +199,39 @@ auth = self.service.doLoginEnc(
 {% endhighlight %}
 
 Oczywiście, nie oznacza to, że samo użycie tych metod i przekazaniu przez internet hasła i loginu w *plain text*, spowoduje automatyczne przejęcie ich przez osoby niepowołane, ale jest takowe ryzyko. Mimo użycia protokołu *HTTPS*, czyli połączenia szyfrowanego, musimy być ostrożni. Najlepiej, gdy używamy tej metody, zmienić hasło na unikalne (nie powtarzające się nigdzie indziej, np. do skrzynki e-mail, ftp, panelu sklepu internetowego) i zmienić je od razu po skończonej pracy takiego skryptu. Jeżeli chcemy wykorzystać skrypt, np. do automatyzacji i będzie on umieszczony na zewnętrznym serwerze, odpalany przez CRON, lub w inny bezobsługowy i powtarzający się sposób, proponuję skorzystać z możliwości uzyskania `token` przez najnowsze REST API Allegro i przekazania go do zasobu [doLoginWithAccessToken](https://allegro.pl/webapi/documentation.php/show/id,101582). Cały proces logowania z użyciem REST API, oraz jak obsługiwać 2 API na raz w jednym skrypcie opiszę już wkrótce w kolejnych wpisach.
+
+## UPDATE! Bezpieczniejsze logowanie do WebAPI
+Ważna informacja, która ratuje nas z opresji, którą było super głupie logowanie się do WebAPI przy użyciu hasła i loginu do konta allegro (w dodatku w *plain text*)! Co więcej, zespół Allegro wprowadził [dwustopniowe logowanie](https://allegro.pl/dla-sprzedajacych/dwustopniowe-logowanie-D5VXVldVbHo) do naszego konta w serwisie Allegro.pl! Jest to niezwykle dobra informacja, dla ludzi którzy cenią sobie wyłączność na dostęp do swojego konta. Co z WebAPI? Również sytuacja się poprawiła! Wprowadzono [hasła do aplikacji](https://allegro.pl/myaccount/Settings/security_settings.php/applicationPasswords), które chronią nas na wypadek wycieku hasła używanego do uwierzytelnienia naszych skryptów w WebAPI (bo jest różne od tego do konta).
+
+Co więcej, gdy ustawimy *dwustopniowe logowanie* do naszego konta, **musimy** użyć zdefiniowanego *hasła do aplikacji* - nie będzie możliwości zalogowania się przy użyciu danych do konta.
+
+<figure class="center">
+	<img src='{{ site.url }}/images/allegro/allegro_app_passwd.gif' alt="">
+	<figcaption>Moje allegro > Bezpieczeństwo > Hasła do aplikacji</figcaption>
+</figure>
+
+To na szybko, jak w **bezpieczny** sposób uzyskać `sessionId` używając *hasła aplikacji*.
+{% highlight python %}
+from suds.client import Client
+import hashlib
+import base64
+
+client = Client('https://webapi.allegro.pl/service.php?wsdl')
+
+response = client.service.doQueryAllSysStatus(webapiKey='<nasz_klucz_webapi>', countryId=1)
+
+version_key = response.item[0].verKey
+
+sha256_application_password = hashlib.sha256('<haslo_do_aplikacji>'.encode('utf-8')).digest()
+
+auth = client.service.doLoginEnc(
+    userLogin='<login>',
+    userHashPassword=base64.b64encode(sha256_application_password).decode('utf-8'), 
+    countryCode=1,
+    webapiKey='<nasz_klucz_webapi>', 
+    localVersion='<uzyskany_wczesniej_verKey>'
+)
+{% endhighlight %}
+
+Niestety, nie zmienia to faktu, że nadal będę musiał napisać o tym jak żonglować dwoma API na raz, bo tak jak zdejmuje to ciężar autoryzacji w WebAPI przez REST API, to i tak nadal potrzebujemy REST API do procesu wystawiania aukcji (co zmniejsza jeszcze bardziej jego użyteczność na chwilę obecną).
 

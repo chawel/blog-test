@@ -3,7 +3,7 @@ layout: post
 title: Podstawy obsługi Web API Allegro.pl - Web Services i moduł suds-jurko w Pythonie
 modified:
 categories: ecommerce/allegro
-description:
+description: Wprowadzenie do obsługi WebAPI - protokół SOAP, WSDL oraz moduł suds
 tags: [allegro, web services, suds, python]
 image:
   feature: allegro_webapi_schemat.png

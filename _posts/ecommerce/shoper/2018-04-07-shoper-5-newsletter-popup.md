@@ -6,7 +6,7 @@ categories: ecommerce/shoper
 description:
 tags: [shoper, popup, javascript]
 image:
-  feature:
+  feature: shoper_popup_banner.jpg
   credit:
   creditlink:
 comments:

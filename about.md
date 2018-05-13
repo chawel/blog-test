@@ -16,5 +16,6 @@ Przestrzegam potencjalnych czytelników: posty pisane są raczej nieskładnie i 
 
 ## Kontakt
 E-mail: wspolpraca@cwsi.pl
+
 Facebook: [cwsipl](https://facebook.com/cwsipl/)
 

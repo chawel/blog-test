@@ -15,5 +15,6 @@ Pozwól, że się przedstawię. Nazywam się Paweł Chaniewski i prowadzę ten b
 Przestrzegam potencjalnych czytelników: posty pisane są raczej nieskładnie i bez polotu (zdania często układam w stylu mistrza Yody). Może się wyrobię, ale wątpię, nie lubię pisać, wolę gadać (chociaż też nie lepiej mi to wychodzi). Postaram się jednak nie przyćmić brakiem stylu, wartości merytorycznej.
 
 ## Kontakt
+E-mail: wspolpraca@cwsi.pl
 Facebook: [cwsipl](https://facebook.com/cwsipl/)
 

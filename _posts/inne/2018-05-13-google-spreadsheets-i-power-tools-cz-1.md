@@ -14,7 +14,7 @@ share:
 date: 2018-05-13T19:12:10+02:00
 ---
 
-Tym wpisem chcę zacząć serię mini-poradników w których będę opisywał swoje doświadczenia i patenty związane z pracą z plikami zawierającymi dane. W tym poście opiszę dość częsty problem, kiedy dostajemy od dostawcy plik w pojedynczymi produktami, które tak na prawdę są wariantami jednego produktu.
+Tym wpisem chcę zacząć serię mini-poradników w których będę opisywał swoje doświadczenia i patenty związane z pracą z plikami zawierającymi dane. W tym poście opiszę dość częsty problem, kiedy dostajemy od dostawcy plik z pojedynczymi produktami, które tak na prawdę są wariantami jednego produktu.
 
 <!-- more -->
 
@@ -40,17 +40,17 @@ Znacie zapewne **Excel** z pakietu *MS Office*, to program do pracy z danymi w f
 
 ## Gdzie haczyk?
 Niestety, muszę uprzedzić, są minusy:
-- Power Tools oferuje **30 dniową wersję próbną**, później albo kupujemy roczną subskrypcję *(~40-30 $)*
-- Korzystanie z Power Tools wiąże się z udzieleniem mu niezbędnych uprawnień i wyrażeniem zgody na pewne warunki. Power Tools prosi o umożliwienie łączenia się z zewnętrznym serwisem - czyli jest ryzyko, że nasze dane mogą być przetwarzane na innym serwerze, a to oznacza, że **NIE POLECAM używania tej wtyczki do wrażliwych danych (np. dane osobowe)**.
-- Google SpreadSheets to usługa w chmurze i jeżeli również ze strony Googla obawiamy się *kompromitacji* danych, to należy się zastanowić na używaniem ich *pakietu biurowego*
+- *Power Tools* oferuje **30 dniową wersję próbną**, później musimy wykupić roczną subskrypcję *(~40-30 $)* ~~(albo założyć nowe konto google)~~
+- Korzystanie z *Power Tools* wiąże się z udzieleniem mu niezbędnych uprawnień i wyrażeniem zgody na pewne warunki. Dodatek prosi o umożliwienie łączenia się z zewnętrznym serwisem - czyli jest ryzyko, że nasze dane mogą być przetwarzane na innym serwerze, a to oznacza, że **NIE POLECAM używania tej wtyczki do wrażliwych danych (np. dane osobowe)**.
+- *Google SpreadSheets* to usługa w chmurze i jeżeli również ze strony Googla obawiamy się *kompromitacji* danych, to należy się zastanowić na używaniem ich *pakietu biurowego*
 
-## Warto?
-**Osobiście uważam, że warto**, zwłaszcza jeżeli obrabiamy dane które i tak upubliczniamy (czyli asortyment sklepu). Dodatkowo zyskujemy możliwość pracy z naszymi dokumentami na każdym urządzeniu z przeglądarką internetową (np. komórka, tablet).
+## Czy Warto?
+**Osobiście uważam, że warto**, zwłaszcza jeżeli obrabiamy dane które i tak upubliczniamy (czyli asortyment sklepu). Dodatkowo uzyskujemy możliwość pracy z naszymi dokumentami na każdym urządzeniu z przeglądarką internetową (np. komórka, tablet).
 
-*Google Sheets* pozwala pracować na jednym dokumencie z innymi osobami w tym samym momencie oraz udostępniać je w prosty sposób. W kwestiach funkcjonalności - do podstawowych operacji (czyli 90% przypadków użycia) jest wystarczający. Jeżeli czegoś nam brakuje, to przy użyciu jego prostego systemu dodawania i zarządzania dodatkami, łatwo dobierzemy zestaw dodatkowych narzędzi.
+*Google Sheets* pozwala pracować na jednym dokumencie z innymi osobami w tym samym momencie oraz udostępniać je w prosty sposób. W kwestiach funkcjonalności - do podstawowych operacji (czyli 90% przypadków użycia) jest wystarczający. Jeżeli czegoś nam brakuje, to przy użyciu prostego systemu dodawania i zarządzania dodatkami, łatwo dobierzemy zestaw dodatkowych narzędzi.
 
 ## Jak zacząć pracę z Google SpreadSheets
-Jeżeli nie posiadamy konta *Google*, to należy je założyć, a jak mamy - to się logujemy i przechodzimy do [Google SpreadSheets](https://docs.google.com/spreadsheets/u/0/).
+Jeżeli nie posiadamy konta *Google*, to musimy je założyć, a jak mamy - to się logujemy i przechodzimy do [Google SpreadSheets](https://docs.google.com/spreadsheets/u/0/).
 
 Aby otworzyć lokalny plik, klikamy na ikonkę folderu
 <figure class="center">
@@ -64,9 +64,10 @@ Następnie w wyświetlonym oknie wybieramy zakładkę *Upload* i możemy przeci�
 	<figcaption>Otwieranie pliku z komputera</figcaption>
 </figure>
 
-
 # Instalacja wtyczki Power Tools
-Kiedy już otworzymy nasz plik, zobaczymy znajomy interfejs. Duża tabela i menu kontekstowe na górze z narzędziami. W menu na górze wybieramy *Add-ons* > *Get add-ons*, w otwartym oknie w wyszukiwarce wpisujemy *power tools* i potwierdzamy (Enter). Na liście znajdujemy **Power Tools** i klikamy przycisk **+FREE**. Teraz, zostaniemy przedstawieni na jakich zasadach i uprawnieniach działa wtyczka, aby jej używać musimy się zgodzić.
+Kiedy już otworzymy nasz plik, zobaczymy znajomy interfejs. Duża tabela i menu kontekstowe z narzędziami u góry. W menu wybieramy *Add-ons* > *Get add-ons*, w otwartym oknie w wyszukiwarce wpisujemy *power tools* i potwierdzamy (Enter). 
+Na liście znajdujemy **Power Tools** i klikamy przycisk **+FREE**. 
+Teraz, zostaniemy przedstawieni na jakich zasadach i uprawnieniach działa wtyczka, aby jej używać musimy się zgodzić.
 
 <figure class="center">
 	<img src='{{ site.url }}/images/googlespreadsheets/addon2.gif' alt="">
@@ -74,7 +75,7 @@ Kiedy już otworzymy nasz plik, zobaczymy znajomy interfejs. Duża tabela i menu
 </figure>
 
 # Obróbka danych z hurtowni
-Zaczynamy otwierając plik od hurtowni (w tym przypadku CSV) w *GSSheets*. Moje przykładowe dane wyglądają tak:
+Zaczynamy otwierając plik od hurtowni (w tym przypadku CSV) w *GS*. Moje przykładowe dane wyglądają tak:
 <figure class="center">
 	<img src='{{ site.url }}/images/googlespreadsheets/example_data.jpg' alt="">
 	<figcaption>Przykładowy plik CSV z hurtowni</figcaption>
@@ -83,14 +84,15 @@ Zaczynamy otwierając plik od hurtowni (w tym przypadku CSV) w *GSSheets*. Moje 
 ## Przykład
 Na przykładzie pliku z hurtowni dywanów, pokażę proces wydzielenia produktów głównych. 
 
-Musimy zdecydować jaką strategię obierzemy. W moim przypadku sprawa wydaję się prosta, kolumna SKU zawiera kody produktów. Zauważ, że kod produktu składa się z 3 części oddzielonych myślnikami. Co więcej, widzimy że pewne części tego kodu są wspólne dla wariantów tego samego produktu, zacznę więc od wydzielenia ich.
+Musimy zdecydować jaką strategię obierzemy. W moim przypadku sprawa wydaję się prosta, kolumna **SKU** zawiera kody produktów. Zauważ, że kod produktu składa się z 3 części oddzielonych myślnikami. 
+Co więcej, widzimy że pewne części tego kodu są wspólne dla wariantów tego samego produktu, zacznę więc od wydzielenia ich.
 
 <figure class="center">
 	<img src='{{ site.url }}/images/googlespreadsheets/tools.jpg' alt="">
-	<figcaption>Lista produktów głównych</figcaption>
+	<figcaption>Dodatki</figcaption>
 </figure>
 
-### Wydzielanie części kodu
+### Wydzielanie części kodu produktu
 
 1. Odpalamy dodatek *Power Tools* ( *Add-ons > Power Tools > Start* )
 2. Zaznaczamy naszą kolumnę **SKU**
@@ -103,7 +105,7 @@ Musimy zdecydować jaką strategię obierzemy. W moim przypadku sprawa wydaję s
 {% endcapture %}
 {% include gallery images=images caption="" cols=2 %}
 
-Stworzone zostały 3 nowe kolumny z wartościami, tę z cząstką kodu który się powtarza nazwijmy *SKU-main*.
+Stworzone zostały 3 nowe kolumny z wartościami, tę z cząstką kodu który się powtarza nazwijmy **SKU-main**.
 
 ### Znajdowanie duplikatów
 
@@ -137,6 +139,3 @@ Do naszego pliku został dodany nowy arkusz, a w nim znajdują się pojedyncze w
 
 # Podsumowanie
 Mam nadzieję, że ten krótki wpis pomoże komuś w ogarnięciu plików z danymi. Oczywiście jest wiele innych możliwości i przypadków w których pomocne jest narzędzie Power Tools. Jeżeli masz nietypowy problem z danymi tabelarycznymi, opisz go w komentarzu, postaram się pomóc.
-
-
-

@@ -6,8 +6,8 @@ categories: inne
 description: Na przykładzie pliku z hurtowni dywanów, pokażę proces wydzielenia produktów głównych z wariantów.
 tags: [excel, spreadsheets, powertools, tips]
 image:
-  feature:
-  credit:
+  feature: gsheet_power_tools.png
+  credit: Google and Ablebits
   creditlink:
 comments:
 share:

@@ -6,7 +6,7 @@ categories: inne
 description: Jak ustalić automatyczne uruchamianie programów lub innych zadań w systemie Windows - Task scheduler
 tags: [windows, tips]
 image:
-  feature:
+  feature: task_scheduler.jpg
   credit:
   creditlink:
 comments:

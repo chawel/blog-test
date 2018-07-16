@@ -47,8 +47,10 @@ Dla osób z *tekstowstrętem*, cały proces w obrazkach.
 
 Dla jasności, dane wygenerowane można zamiennie używać dla REST API jak i Web API, w tym przypadku naszym kluczem Web API będzie **"Client ID / klucz WebAPI"**.
 
-### Klucze Web API z przed 24.05.2018
+### Klucze Web API sprzed 24.05.2018
 >Uwaga! Jeżeli generowałeś dane dostępowe przed 24 maja 2018 roku, zamiast Client ID posiadasz klucz WebAPI. Znajdziesz go pod tym samym adresem, pod którym są pozostałe dane dostępowe. Klucz WebAPI jest przyporządkowany do danego konta. Na jednym koncie może być wygenerowany tylko jeden klucz.
+
+Jeżeli więc wcześniej (przed 24 maja 2018) generowałeś klucz WebAPI, to jest on nadal dostępny na samym dole panelu [Zarządzanie aplikacjami Allegro](https://apps.developer.allegro.pl), możesz go użyć lub ten nowo wygenerowany.
 
 ## Obsługa protokołu SOAP w Python
 

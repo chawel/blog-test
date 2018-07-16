@@ -26,28 +26,29 @@ Ten wpis poświęcę na omówienie samej komunikacji z Web Serwisem, o tym jak t
 
 
 ## Uzyskanie klucza Web API.
+**Update 16-07-2018!**
+
 Zanim zaczniemy, musimy uzyskać klucz Web API z panelu naszego konta na Allegro.pl. Służy on do identyfikacji podczas komunikacji, ale nie jest to uwierzytelnienie (od tego będzie id sesji).
 
-Logujemy się na nasze konto w Allegro.pl, następnie przechodzimy do zakładki *Moje konto*, tam na dole na ekranie głównym odnajdujemy sekcję *WebAPI*, a w niej odnośnik [Informacje i ustawienia](https://allegro.pl/myaccount/webapi.php)
+Logujemy się na nasze konto w Allegro.pl, następnie przechodzimy do zakładki *Moje konto*, tam na dole na ekranie głównym odnajdujemy sekcję *WebAPI*, a w niej odnośnik [Informacje i ustawienia](https://allegro.pl/myaccount/webapi.php) lub od razu do panelu [Zarządzanie aplikacjami Allegro](https://apps.developer.allegro.pl)
 
 <figure class="center">
 	<img src='{{ site.url }}/images/allegro/allegro_mojeallegro.png' alt="">
 	<figcaption>Moje allegro</figcaption>
 </figure>
 
-Tam czeka na nas wirtualny policjant, który musi wiedzieć, czym motywujemy prośbę o wygenerowanie naszego klucza. Odpowiadamy zgodnie z własnym sumieniem, pamiętając o tym, że wszystko co napiszemy może zostać użyte przeciwko nam... (żart)
+Dla osób z *tekstowstrętem*, cały proces w obrazkach.
+{% capture images %}
+	/images/allegro/allegro_rest_reg1.png
+	/images/allegro/allegro_rest_reg2.png
+	/images/allegro/allegro_rest_reg3.png
+{% endcapture %}
+{% include gallery images=images caption="Proces rejestracji aplikacji" cols=2 %}
 
-<figure class="center">
-	<img src='{{ site.url }}/images/allegro/allegro_webapikey_gen.png' alt="">
-	<figcaption>Ktoś to w ogóle czyta? Po co te wyjaśnienia?</figcaption>
-</figure>
+Dla jasności, dane wygenerowane można zamiennie używać dla REST API jak i Web API, w tym przypadku naszym kluczem Web API będzie **"Client ID / klucz WebAPI"**.
 
-Zgarniamy wygenerowany klucz i jedziemy dalej.
-
-<figure class="center">
-	<img src='{{ site.url }}/images/allegro/allegro_webapikey.png' alt="">
-	<figcaption>Klucz Allegro WebAPI</figcaption>
-</figure>
+### Klucze Web API z przed 24.05.2018
+>Uwaga! Jeżeli generowałeś dane dostępowe przed 24 maja 2018 roku, zamiast Client ID posiadasz klucz WebAPI. Znajdziesz go pod tym samym adresem, pod którym są pozostałe dane dostępowe. Klucz WebAPI jest przyporządkowany do danego konta. Na jednym koncie może być wygenerowany tylko jeden klucz.
 
 ## Obsługa protokołu SOAP w Python
 

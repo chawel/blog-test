@@ -21,15 +21,24 @@ Przykład jak można komunikować się z Web Service (Allegro WebAPI) przez SOAP
 # Wstęp
 Post obejmuje jedynie kwestie Google Apps Script, dodatkowo będziemy działać *"na żywca"* (bez biblioteki, klienta czy innego narzędzia które nam pomoże w komunikacji), więc potrzebna jest wiedza jak działa protokół SOAP.
 
-Upewnij się, że przeczytałeś mój poprzedni post wprowadzający w temat obsługi WebAPI Allegro: [Podstawy obsługi Web API Allegro.pl - Web Services i moduł suds-jurko w Pythonie]({{ site.baseurl }}{% post_url /ecommerce/allegro/2018-03-09-podstawy-obslugi-web-api-allegro-pl-web-services-i-modul-suds-jurko-w-pythonie %}), jest tam przykład napisany w Pythonie, ale głównie chodzi o to abyś wiedział jak wygenerować klucz WebApi, jak przebiega proces uwierzytelniania oraz miał obycie z podstawami obsługi protokołu SOAP. 
-Musisz również wiedzieć jak tworzyć skrypty w GAS - opisywałem podstawy w tym poście: [Google Apps Script - Wprowadzenie]({{ site.baseurl }}{% post_url /inne/2018-05-31-google-apps-script-wprowadzenie %})
+Upewnij się, że przeczytałeś mój poprzedni post wprowadzający w temat obsługi WebAPI Allegro: 
+
+[Podstawy obsługi Web API Allegro.pl - Web Services i moduł suds-jurko w Pythonie]({{ site.baseurl }}{% post_url /ecommerce/allegro/2018-03-09-podstawy-obslugi-web-api-allegro-pl-web-services-i-modul-suds-jurko-w-pythonie %})
+
+Przykład napisany w Pythonie, ale głównie chodzi o to abyś wiedział jak wygenerować klucz WebApi, jak przebiega proces uwierzytelniania oraz miał obycie z podstawami obsługi protokołu SOAP. 
+
+Musisz również wiedzieć jak tworzyć skrypty w GAS - opisywałem podstawy w tym poście: 
+
+[Google Apps Script - Wprowadzenie]({{ site.baseurl }}{% post_url /inne/2018-05-31-google-apps-script-wprowadzenie %})
 
 Zakładam, że wiesz czym są API, Web service, protokół HTTP, Request, Response, XML oraz znasz podstawy JavaScript i wiesz czym jest Google Apps Script. To podstawy bez których niestety nie będziesz w stanie zrozumieć koncepcji zaprezentowanej w tym poście - a tłumaczenie ich mogłoby skończyć się nowym tomem książki o SOAP i Usługach sieciowych, zamiast zwięzłego postu o Google Apps Script.
 
 **Jeżeli znasz już te zagadnienia, to zapraszam do lektury.**
 
 # Google Apps Script
-Zaczynamy od stworzenia nowego skryptu (poprzednio tworzyliśmy skrypt w obrębie arkusza kalkulacyjnego Google SpreadSheets, teraz skorzystamy w możliwości tworzenia samodzielnych skryptów - jednak nic nie stoi na przeszkodzie, aby sprzężyć skrypt z arkuszem). Przechodzimy do naszego panelu Google Apps Script (https://script.google.com/) i wybieramy w lewym górym rogu **+ Nowy Skrypt**.
+Zaczynamy od stworzenia nowego skryptu (poprzednio tworzyliśmy skrypt w obrębie arkusza kalkulacyjnego Google SpreadSheets, teraz skorzystamy w możliwości tworzenia samodzielnych skryptów - jednak nic nie stoi na przeszkodzie, aby sprzężyć skrypt z arkuszem). 
+
+Przechodzimy do naszego panelu [Google Apps Script](https://script.google.com/) i wybieramy w lewym górym rogu **+ Nowy Skrypt**.
 
 <figure class="center">
 	<img src='{{ site.url }}/images/gas/new_script.png' alt="">
@@ -45,20 +54,22 @@ Teraz znajdujemy się w edytorze skryptów. To tutaj będziemy pisać naszą int
 
 ## XmlService
 GAS oferuje szereg gotowych serwisów, które posiadają pewne funkcje. Do pracy z formatem XML wykorzystamy [XmlService](https://developers.google.com/apps-script/reference/xml-service/).
+
 Posłuży nam on do stworzenia odpowiedniego zapytania, czyli dokumentu SOAP. 
 Jak wspomniałem wcześniej, taki request zdefiniowany jest określoną strukturą, która musi zawierać obowiązkowe dla niej znaczniki. 
 
 Zacznijmy więc od stworzenia *"pustego"* dokumentu SOAP - potraktuj to jak przygotowanie pustej koperty na wiadomość.
 
-```
+{% highlight javascript %}
 var soapIn = XmlService.parse('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://webapi.allegro.pl/service.php"></SOAP-ENV:Envelope>');
-```
+{% endhighlight %}
 
 Jak widzisz, nasza *"koperta"* definiuje jakieś `xmlns`, są to definicje przestrzeni nazw (ang. namespace, skrót: ns) - jest to trochę rozbudowany temat, więc na obecną chwilę zaufaj mi, że tak musi być. 
+
 Skoro jest koperta to i musimy napisać wiadomość, którą chcemy wysłać. 
 W tym celu stworzymy *"ciało"* naszego *request'a*, czyli element `Body`, będzie to taki list który włożymy do koperty.
 
-```
+{% highlight javascript %}
 // Pobieramy root node naszej koperty
 var soapEnv = soapIn.getRootElement();
 // Pobieramy jej namespace oznaczony jako 'SOAP-ENV'
@@ -66,7 +77,7 @@ var soapNS = soapEnv.getNamespace("SOAP-ENV");
 
 // Tworzymy zgodne Body w przestrzeni nazw SOAP-ENV
 var soapBody = XmlService.createElement("Body", soapNS);
-```
+{% endhighlight %}
 
 Teraz nasz **dokument SOAP** (przypisany do zmiennej `soapIn`) będzie wyglądać tak:
 ```
@@ -78,11 +89,16 @@ Teraz nasz **dokument SOAP** (przypisany do zmiennej `soapIn`) będzie wygląda�
 ```
 
 Jak widać pojawił się znacznik `Body`. Skoro mamy nasz przysłowiowy list, warto by napisać kilka miłych słów dla odbiorcy, np. z prośbą o informację zwrotną z wartością klucza wersji (niezbędny do używania WebAPI). 
-W tym celu, mamy do dyspozycji metodę (doQueryAllSysStatus)[https://allegro.pl/webapi/documentation.php/show/id,62], aby się do niej odwołać, w `Body` przekażemy niezbędne dane do jej wywołania. 
-W tym miejscu przyda się nam umiejętność odczytywania (dosłownie czytania, nie że parsowania czy coś) pliku **WSDL**, bo w nim zawarte są opisy metod, do których należy się odwołać. 
-Chcąc odwołać się do **doQueryAllSysStatus** musimy przesłać strukturę `DoQueryAllSysStatusRequest` i dane które powinna zawierać, natomiast odbierać będziemy `doQueryAllSysStatusResponse` (to wszystko znajdziemy w WSDL - możemy go otworzyć w zwykłej przeglądarce internetowej i przy pomocy `CTRL`+`F` szukać)
 
-```
+W tym celu, mamy do dyspozycji metodę [doQueryAllSysStatus](https://allegro.pl/webapi/documentation.php/show/id,62), aby się do niej odwołać, w `Body` przekażemy niezbędne dane do jej wywołania. 
+
+Teraz przyda się nam umiejętność odczytywania (dosłownie czytania, nie że parsowania czy coś) pliku **WSDL**, bo w nim zawarte są opisy metod, do których należy się odwołać. 
+
+Chcąc odwołać się do **doQueryAllSysStatus** musimy przesłać strukturę `DoQueryAllSysStatusRequest` i dane które powinna zawierać, natomiast odbierać będziemy `doQueryAllSysStatusResponse` 
+
+(to wszystko znajdziemy w WSDL - możemy go otworzyć w zwykłej przeglądarce internetowej i przy pomocy `CTRL`+`F` szukać)
+
+{% highlight javascript %}
 // namespace WebApi Allegro zdefiniowany wcześniej w kopercie
 var apiNS = soapEnv.getNamespace("ns1");
 
@@ -101,16 +117,17 @@ methodElement.addContent(webapiKey);
 soapBody.addContent(methodElement);
 // Pakujemy całość do koperty
 soapEnv.addContent(soapBody);
-```
+{% endhighlight %}
 
 W ten oto sposób napisaliśmy *"list"* i wsadziliśmy go do *"koperty"*, to znaczy wypełniliśmy strukturę danymi. 
 Teraz zostało nam jeszcze zaadresować naszą wiadomość i ją wysłać.
 
 ## UrlFetchApp
-Kolejnym serwisem Google Apps Script którego potrzebujemy, jest (UrlFetchApp)[https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app], służy on do obsługi protokołu **HTTP**. 
+Kolejnym serwisem Google Apps Script którego potrzebujemy, jest [UrlFetchApp](https://developers.google.com/apps-script/reference/url-fetch/url-fetch-app), służy on do obsługi protokołu **HTTP**. 
+
 Posłuży on do wysłania naszego *"listu"* na odpowiedni adres i odebrania odpowiedzi.
 
-```
+{% highlight javascript %}
 // Opcje dla metody fetch, definiujemy tutaj metodę (POST), typ contentu, i co wysyłamy
 var options = {
 	"method" : "post",
@@ -125,11 +142,11 @@ var soapCall= UrlFetchApp.fetch("https://webapi.allegro.pl/service.php", options
 
 // Możemy wypisać co zwróciło nam API
 Logger.log(soapCall);
-```
+{% endhighlight %}
 
 ## Uruchamiamy skrypt
 Cały skrypt powinien wyglądać mniej więcej tak:
-```
+{% highlight javascript %}
 function myFunction() {
   var soapIn = XmlService.parse('<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns1="https://webapi.allegro.pl/service.php"></SOAP-ENV:Envelope>');
   // Pobieramy root node naszej koperty
@@ -176,7 +193,7 @@ function myFunction() {
   // Możemy wypisać co zwróciło nam API
   Logger.log(soapCall);
 }
-```
+{% endhighlight %}
 
 Teraz wystarczy go uruchomić, udzielić uprawnień i sprawdzić **Dziennik (Log)**. 
 <figure class="center">
@@ -209,14 +226,15 @@ Poprawnie zwrócony response powinien wyglądać tak:
 
 # Skrypt z Logowaniem
 Umieszam kod bardziej rozbudowanej wersji skryptu, którą można realnie wykorzystać do integracji WebApi Allegro przez SOAP z Google Apps Script. 
+
 Posiada możliwość logowania się (uwierzytelniania sesji), oraz bardziej rozbudowane mechanizmy parsowania XML. 
 Niestety, jest to tylko **proof-of-concept** z powodu problemów, które są nie do przeskoczenia, ale można się pobawić.
 
-GitHub: (gas-allegrowebapi)[https://github.com/chawel/gas-allegrowebapi]
+GitHub: `https://github.com/chawel/gas-allegrowebapi`
 
 # Podsumowanie
 Cały skrypt jak już wspomniałem, to tylko *"pokazówka"* możliwości GAS i chyba niezbyt trafnie wybrałem WebAPI Allegro na ten przykład. Dlaczego? Z dwóch powodów:
-1. Allegro zapowiedziało rozpoczęcie procesu *"wygaszania"* WebAPI i przeniesienia całej funkcjonalności do (REST API)[https://developer.allegro.pl/news/2018-06-06-Wygaszamy_webapi/]
-2. WebAPI posiada dość osobliwe zabezpieczenie, IP z którego uzyskano `sessionId` musi być stałe jeżeli chodzi o dalsze używanie zasobów API. Niestety Google nie oferuje statycznego adresu IP dla swoich usług, więc często już podczas uwierzytelnienia, nasz `sessionId` jest bezużyteczny, ponieważ Google przeniosło nas na inny serwer (a co za tym idzie wysyłamy requesty z nowego adresu IP). Więcej o tym zabezpieczeniu: (https://allegro.pl/webapi/faq.php#faq_5)[https://allegro.pl/webapi/faq.php#faq_5]
+1. Allegro zapowiedziało rozpoczęcie procesu *"wygaszania"* WebAPI i przeniesienia całej funkcjonalności do [REST API](https://developer.allegro.pl/news/2018-06-06-Wygaszamy_webapi/)
+2. WebAPI posiada dość osobliwe zabezpieczenie, IP z którego uzyskano `sessionId` musi być stałe jeżeli chodzi o dalsze używanie zasobów API. Niestety Google nie oferuje statycznego adresu IP dla swoich usług, więc często już podczas uwierzytelnienia, nasz `sessionId` jest bezużyteczny, ponieważ Google przeniosło nas na inny serwer (a co za tym idzie wysyłamy requesty z nowego adresu IP). Więcej o tym zabezpieczeniu: [https://allegro.pl/webapi/faq.php#faq_5](https://allegro.pl/webapi/faq.php#faq_5)
 
 Niemniej jednak, blog prowadzę z myślą o osobach zajmujących się sprzedażą internetową, a pierwsze API obługującym SOAP które przyszło mi do głowy było właśnie WebAPI Allegro. Opisane tutaj metody pracy GAS z SOAP i formatem XML są uniwersalne, więc swobodnie można na podstawie tej instrukcji zbudować integrację z innym WS. Już niedługo - kolejna część a w niej opis jak połączyć REST API z Google SpreadSheets!

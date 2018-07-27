@@ -6,7 +6,7 @@ categories: inne
 description: Zaawansowane użycie Google Apps Script, czyli klient dla Web Service Allegro.
 tags: [soap, google apps script, allegro, web services]
 image:
-  feature: 
+  feature: gas_soap.png 
   credit: 
   creditlink:
 comments:
